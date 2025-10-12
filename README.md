@@ -13,6 +13,7 @@ public class MyBehaviour : MonoBehaviour
     private void Update()
     {
         DoSomething1();
+        DoSomething2();
     }
 
     private void DoSomething1()
@@ -55,4 +56,4 @@ internal static class __MyBehaviourProfilerMarkerExtensions
 }
 ```
 
-/Users/vladislavpanin/Documents/Aspid/Aspid.UnityFastTools/Projects/Aspid.UnityFastTools/Aspid.UnityFastTools/Assets/Plugins/Aspid/UnityFastTools/Documentation/Images/Aspid.UnityFastTools.MarkerTest.png
+![Aspid.UnityFastTools.MarkerTest.png](Aspid.UnityFastTools/Assets/Plugins/Aspid/UnityFastTools/Documentation/Images/Aspid.UnityFastTools.MarkerTest.png)
