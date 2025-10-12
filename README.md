@@ -34,14 +34,15 @@ public class MyBehaviour : MonoBehaviour
 ```
 ### Generated code
 ``` csharp
+using System;
 using Unity.Profiling;
 using System.Runtime.CompilerServices;
 
 internal static class __MyBehaviourProfilerMarkerExtensions
 {
     private static readonly ProfilerMarker DoSomething1_line_13 = new("MyBehaviour.DoSomething1 (13)");
-    private static readonly global::Unity.Profiling.ProfilerMarker DoSomething2_line_19 = new("MyBehaviour.DoSomething2 (19)");
-    private static readonly global::Unity.Profiling.ProfilerMarker DoSomething2_line_22 = new("MyBehaviour.Calculate (22)");
+    private static readonly ProfilerMarker DoSomething2_line_19 = new("MyBehaviour.DoSomething2 (19)");
+    private static readonly ProfilerMarker DoSomething2_line_22 = new("MyBehaviour.Calculate (22)");
  
     public static ProfilerMarker.AutoScope Marker(this MyBehaviour _, [CallerLineNumberAttribute] int line = -1)
     {
@@ -49,7 +50,9 @@ internal static class __MyBehaviourProfilerMarkerExtensions
         if (line is 19) return DoSomething2_line_19.Auto();
         if (line is 22) return DoSomething2_line_22.Auto();
         
-        throw new global::System.Exception();
+        throw new Exception();
     }
 }
 ```
+
+/Users/vladislavpanin/Documents/Aspid/Aspid.UnityFastTools/Projects/Aspid.UnityFastTools/Aspid.UnityFastTools/Assets/Plugins/Aspid/UnityFastTools/Documentation/Images/Aspid.UnityFastTools.MarkerTest.png
