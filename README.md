@@ -3,6 +3,11 @@
 ## Source Code
 ### [[Aspid.UnityFastTools](https://github.com/VPDPersonal/Aspid.UnityFastTools)] [[Aspid.UnityFastTools.Generators](https://github.com/VPDPersonal/Aspid.UnityFastTools.Generators)]
 ---
+
+## Integration
+You can install Aspid.UnitiFastTools using one of the following methods:
+* **Download .unitypackage**: Visit the [Release page on GitHub](https://github.com/VPDPersonal/Aspid.UnityFastTools/releases) and download the latest version, `Aspid.UnityFastTools.X.X.X.unitypackage`. Import it into your project.
+
 ## **Examples**
 ``` csharp
 using UnityEngine;
