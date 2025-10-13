@@ -1,9 +1,17 @@
 # Unity Fast Tools
-**Unity Fast Tools** is a set of tools designed to minimize routine code writing in Unity. 
+**Unity Fast Tools** is a set of tools designed to minimize routine code writing in Unity.
 ## Source Code
 ### [[Aspid.UnityFastTools](https://github.com/VPDPersonal/Aspid.UnityFastTools)] [[Aspid.UnityFastTools.Generators](https://github.com/VPDPersonal/Aspid.UnityFastTools.Generators)]
+
 ---
-## **Examples**
+
+## Integration
+You can install Aspid.UnitiFastTools using one of the following methods:
+* **Download .unitypackage**: Visit the [Release page on GitHub](https://github.com/VPDPersonal/Aspid.UnityFastTools/releases) and download the latest version, `Aspid.UnityFastTools.X.X.X.unitypackage`. Import it into your project.
+
+---
+
+## ProfilerMarker
 ``` csharp
 using UnityEngine;
 using Aspid.UnityFastTools;
@@ -56,4 +64,88 @@ internal static class __MyBehaviourProfilerMarkerExtensions
 }
 ```
 
+### Result
+
 ![Aspid.UnityFastTools.MarkerTest.png](Images/Aspid.UnityFastTools.MarkerTest.png)
+
+## IMGUI Extensions
+``` csharp
+usign UnityEditor;
+using Aspid.UnityFastTools.Editors;
+
+[CustomEditor(typeof(MyBegaviour))]
+public class MyEditor : Editor
+{
+    public void override OnInspectorGUI()
+    {   
+        // Or  using (VerticalScope.Begin());
+        using (AspidEdtiroGUILayout.BeginVertical())
+        {
+            
+        }
+        
+        // Or  using (HorizontalScope.Begin());
+        using (AspidEdtiroGUILayout.BegingHorizontal())
+        {   
+        
+        }
+        
+        var position = Vector2.zero;
+        // Or  using (ScrollViewScope.Begin(ref position));
+        using (AspidEdtiroGUILayout.BeginScrollView(ref position))
+        {   
+        
+        }
+    }
+}
+```
+
+## VisualElement Extensions
+``` csharp
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.UIElements;
+using Aspid.UnityFastTools.Editors;
+
+[CustomEditor(typeof(VisualElementInspector))]
+public class VisualElementInspectorEditor : Editor
+{
+    public override VisualElement CreateInspectorGUI()
+    {
+        const string iconPath = "Editor/VisualElementIcon";
+        
+        var scriptName = target.GetScriptName();
+        var darkColor = new Color(0.15f, 0.15f, 0.15f);
+        var lightColor = new Color(0.75f, 0.75f, 0.75f);
+        
+        return new VisualElement()
+            .SetName("Header")
+            .SetBackgroundColor(darkColor)
+            .SetFlexDirection(FlexDirection.Row)
+            .SetPadding(top : 5, bottom : 5, left: 10, right: 10)
+            .SetBorderRadius(topLeft: 10, topRight:10, bottomLeft:10, bottomRight:10)
+            .AddChild(new Image()
+                .SetName("HeaderIcon")
+                .SetImageFromResource(iconPath)
+                .SetSize(width: 40, height: 40))
+            .AddChild(new Label(scriptName)
+                .SetName("HeaderText")
+                .SetFlexGrow(1)
+                .SetFontSize(16)
+                .SetFlexShrink(1)
+                .SetMargin(left: 10)
+                .SetColor(lightColor)
+                .SetAlignSelf(Align.Center)
+                .SetOverflow(Overflow.Hidden)
+                .SetWhiteSpace(WhiteSpace.NoWrap)
+                .SetTextOverflow(TextOverflow.Ellipsis)
+                .SetUnityFontStyleAndWeight(FontStyle.Bold)
+            );
+    }
+}
+```
+
+### Result
+
+![Aspid.UnityFastTools.VisualElement.png](Images/Aspid.UnityFastTools.VisualElement.png)
+
