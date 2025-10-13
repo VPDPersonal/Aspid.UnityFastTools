@@ -38,7 +38,7 @@ namespace Aspid.UnityFastTools.Editors
             Vector2 scrollPosition, 
             params GUILayoutOption[] options)
         {
-            return ScrollViewScope.Begin(ref scrollPosition, options);
+            return ScrollViewScope.Begin(scrollPosition, options);
         }
 
         public static ScrollViewScope BeginScrollView(
@@ -47,7 +47,7 @@ namespace Aspid.UnityFastTools.Editors
             bool alwaysShowVertical,
             params GUILayoutOption[] options)
         {
-            return ScrollViewScope.Begin(ref scrollPosition, alwaysShowHorizontal, alwaysShowVertical, options);
+            return ScrollViewScope.Begin(scrollPosition, alwaysShowHorizontal, alwaysShowVertical, options);
         }
 
         public static ScrollViewScope BeginScrollView(
@@ -56,7 +56,7 @@ namespace Aspid.UnityFastTools.Editors
             GUIStyle verticalScrollbar,
             params GUILayoutOption[] options)
         {
-            return ScrollViewScope.Begin(ref scrollPosition, horizontalScrollbar, verticalScrollbar, options);
+            return ScrollViewScope.Begin(scrollPosition, horizontalScrollbar, verticalScrollbar, options);
         }
 
         public static ScrollViewScope BeginScrollView(
@@ -64,7 +64,7 @@ namespace Aspid.UnityFastTools.Editors
             GUIStyle style,
             params GUILayoutOption[] options)
         {
-            return ScrollViewScope.Begin(ref scrollPosition, style, options);
+            return ScrollViewScope.Begin(scrollPosition, style, options);
         }
 
         public static ScrollViewScope BeginScrollView(
@@ -76,7 +76,7 @@ namespace Aspid.UnityFastTools.Editors
             GUIStyle background,
             params GUILayoutOption[] options)
         {
-            return ScrollViewScope.Begin(ref scrollPosition, alwaysShowHorizontal, alwaysShowVertical,
+            return ScrollViewScope.Begin(scrollPosition, alwaysShowHorizontal, alwaysShowVertical,
                 horizontalScrollbar, verticalScrollbar, background, options);
         }
         

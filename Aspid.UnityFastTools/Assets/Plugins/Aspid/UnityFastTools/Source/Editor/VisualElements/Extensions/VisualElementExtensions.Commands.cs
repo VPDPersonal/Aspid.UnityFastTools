@@ -9,7 +9,7 @@ namespace Aspid.UnityFastTools.Editors
     {
         private const float DoubleClickTime = 0.3f;
         
-        public static void AddOpenScriptCommand<T>(this T element, Object obj)
+        public static T AddOpenScriptCommand<T>(this T element, Object obj)
             where T : VisualElement
         {
             var script = obj switch
@@ -19,20 +19,22 @@ namespace Aspid.UnityFastTools.Editors
                 _ => null
             };
 
-            if (!script) return;
-            
-            var lastClickTime = 0f;
-
-                
-            element.RegisterCallback<MouseUpEvent>(_ =>
+            if (script)
             {
-                var currentTime = (float)EditorApplication.timeSinceStartup;
+                var lastClickTime = 0f;
+                
+                element.RegisterCallback<MouseUpEvent>(_ =>
+                {
+                    var currentTime = (float)EditorApplication.timeSinceStartup;
 
-                if (currentTime - lastClickTime < DoubleClickTime)
-                    AssetDatabase.OpenAsset(script);
+                    if (currentTime - lastClickTime < DoubleClickTime)
+                        AssetDatabase.OpenAsset(script);
                     
-                lastClickTime = currentTime;
-            });
+                    lastClickTime = currentTime;
+                });
+            }
+
+            return element;
         }
     }
 }
