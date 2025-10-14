@@ -14,17 +14,28 @@ namespace Aspid.UnityFastTools.Samples.ProfilerMarkers
         private void DoSomething1()
         {
             using var _ = this.Marker();
-            // Some code
+            Load();
         }
 
         private void DoSomething2()
         {
             using (this.Marker())
             {
-                // Some code
+                Load();
                 using var _ = this.Marker().WithName("Calculate");
-                // Some code
+                Load();
             }    
+        }
+
+        private static void Load()
+        {
+            object number = 0;
+
+            for (var i = 0; i < 100000; i++)
+            {
+                if (number is int intNumber)
+                    number = intNumber + 1;
+            }
         }
     }
 }

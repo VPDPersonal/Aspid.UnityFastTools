@@ -9,10 +9,9 @@ namespace Aspid.UnityFastTools.Samples.VisualElements
     [CustomEditor(typeof(VisualElementInspector))]
     public class VisualElementInspectorEditor : Editor
     {
-        
         public override VisualElement CreateInspectorGUI()
         {
-            const string iconPath = "Editor/VisualElementIcon";
+            const string iconPath = "Editor/Aspid.UnityFastTools Icon";
             
             var scriptName = target.GetScriptName();
             var darkColor = new Color(0.15f, 0.15f, 0.15f);

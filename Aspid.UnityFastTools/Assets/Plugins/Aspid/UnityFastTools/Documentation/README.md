@@ -66,7 +66,7 @@ internal static class __MyBehaviourProfilerMarkerExtensions
 
 ### Result
 
-![Aspid.UnityFastTools.MarkerTest.png](Images/Aspid.UnityFastTools.MarkerTest.png)
+![Aspid.UnityFastTools.ProfilerMarkers.png](Images/Aspid.UnityFastTools.ProfilerMarkers.png)
 
 ## IMGUI Extensions
 ``` csharp
@@ -104,6 +104,7 @@ public class MyEditor : Editor
 ``` csharp
 using UnityEditor;
 using UnityEngine;
+using Aspid.UnityFastTools;
 using UnityEngine.UIElements;
 using Aspid.UnityFastTools.Editors;
 
@@ -112,7 +113,7 @@ public class VisualElementInspectorEditor : Editor
 {
     public override VisualElement CreateInspectorGUI()
     {
-        const string iconPath = "Editor/VisualElementIcon";
+        const string iconPath = "Editor/Aspid.UnityFastTools Icon";
         
         var scriptName = target.GetScriptName();
         var darkColor = new Color(0.15f, 0.15f, 0.15f);
@@ -126,6 +127,7 @@ public class VisualElementInspectorEditor : Editor
             .SetBorderRadius(topLeft: 10, topRight:10, bottomLeft:10, bottomRight:10)
             .AddChild(new Image()
                 .SetName("HeaderIcon")
+                .AddOpenScriptCommand(target)
                 .SetImageFromResource(iconPath)
                 .SetSize(width: 40, height: 40))
             .AddChild(new Label(scriptName)
