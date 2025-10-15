@@ -1,0 +1,17 @@
+{
+  "name": "com.aspid.unityfasttools",
+  "version": "0.0.1-alpha.2",
+  "displayName": "Aspid.UnityFastTools",
+  "description": "Unity Fast Tools is a set of tools designed to minimize routine code writing in Unity",
+  "unity": "2022.3",
+  "author": {
+    "name": "Vladislav Panin",
+    "email": "vpd.aspid@gmail.com"
+  },
+  "samples": [
+    {
+      "displayName": "Aspid.UnityFastTools Samples",
+      "path": "Samples"
+    }
+  ]
+}
