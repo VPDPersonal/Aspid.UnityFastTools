@@ -8,6 +8,7 @@
 ## Integration
 You can install Aspid.UnitiFastTools using one of the following methods:
 * **Download .unitypackage**: Visit the [Release page on GitHub](https://github.com/VPDPersonal/Aspid.UnityFastTools/releases) and download the latest version, `Aspid.UnityFastTools.X.X.X.unitypackage`. Import it into your project.
+* Select in UPM "Add package from git URL. Install package with link. `https://github.com/VPDPersonal/Aspid.UnityFastTools.git?path=Aspid.UnityFastTools/Assets/Plugins/Aspid/UnityFastTools`
 
 ---
 
