@@ -34,10 +34,14 @@ namespace Aspid.UnityFastTools
             }
         }
         
-        internal static VisualElement DrawUIToolkit(SerializedProperty property, Type type)
+        internal static VisualElement DrawUIToolkit(SerializedProperty property, string label, Type type)
         {
+            var typeSelector = new VisualElement()
+                .SetFlexDirection(FlexDirection.Row);
+            
             var button = new Button()
                 .SetMargin(0)
+                .SetFlexGrow(1)
                 .SetUnityTextAlign(TextAnchor.MiddleLeft)
                 .SetText(GetCaption(property.stringValue))
                 .SetTooltip(GetTooltip(property.stringValue));
@@ -59,7 +63,14 @@ namespace Aspid.UnityFastTools
                 });
             };
 
-            return button;
+            if (!string.IsNullOrEmpty(label))
+            {
+                typeSelector.AddChild(new Label(label)
+                    .SetUnityTextAlign(TextAnchor.MiddleLeft)
+                    .SetMargin(right: 15));
+            }
+
+            return typeSelector.AddChild(button);
         }
         
         private static string GetTooltip(string assemblyQualifiedName)

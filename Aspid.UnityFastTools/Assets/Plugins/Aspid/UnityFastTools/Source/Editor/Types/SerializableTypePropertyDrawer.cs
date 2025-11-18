@@ -19,7 +19,7 @@ namespace Aspid.UnityFastTools
         public override VisualElement CreatePropertyGUI(SerializedProperty property)
         {
             var type = GetTypeFromFieldType();
-            return SerializableTypeDrawer.DrawUIToolkit(GetProperty(property), type);
+            return SerializableTypeDrawer.DrawUIToolkit(GetProperty(property), preferredLabel, type);
         }
 
         private static SerializedProperty GetProperty(SerializedProperty property) =>
