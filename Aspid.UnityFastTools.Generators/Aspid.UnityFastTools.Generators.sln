@@ -1,10 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspid.UnityFastTools.Generators", "UnityFastToolsGenerators\Aspid.UnityFastTools.Generators\Aspid.UnityFastTools.Generators.csproj", "{CB9D8D51-7D86-4B84-A0DB-73E418962DA7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspid.UnityFastTools.Generators", "Aspid.UnityFastTools.Generators\Aspid.UnityFastTools.Generators.csproj", "{CB9D8D51-7D86-4B84-A0DB-73E418962DA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspid.UnityFastTools.Generators.Sample", "UnityFastToolsGenerators\Aspid.UnityFastTools.Generators.Sample\Aspid.UnityFastTools.Generators.Sample.csproj", "{2835DD81-D105-4C2E-AE03-BC7D064C29D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspid.UnityFastTools.Generators.Sample", "Aspid.UnityFastTools.Generators.Sample\Aspid.UnityFastTools.Generators.Sample.csproj", "{2835DD81-D105-4C2E-AE03-BC7D064C29D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspid.UnityFastTools.Generators.Tests", "UnityFastToolsGenerators\Aspid.UnityFastTools.Generators.Tests\Aspid.UnityFastTools.Generators.Tests.csproj", "{F4953608-2F14-4B2E-B91C-B3FDFC81B180}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspid.UnityFastTools.Generators.Tests", "Aspid.UnityFastTools.Generators.Tests\Aspid.UnityFastTools.Generators.Tests.csproj", "{F4953608-2F14-4B2E-B91C-B3FDFC81B180}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
