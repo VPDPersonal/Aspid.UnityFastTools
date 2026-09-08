@@ -178,11 +178,11 @@ const config = {
             ],
           },
           {
-            title: 'Learn',
+            title: 'Contact',
             items: [
-              { label: 'Tutorials', to: '/samples' },
-              { label: 'API Reference', to: '/api/Aspid.FastTools' },
-              { label: 'VisualElement Extensions', to: '/docs/visual-element-extensions' },
+              { label: 'LinkedIn', href: 'https://www.linkedin.com/in/vladislav-panin-965048314/' },
+              { label: 'vpd.aspid@gmail.com', href: 'mailto:vpd.aspid@gmail.com' },
+              { label: 'Vladislav Panin · GitHub', href: 'https://github.com/VPDPersonal' },
             ],
           },
           {

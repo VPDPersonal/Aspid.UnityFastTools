@@ -195,6 +195,12 @@ h6 {
   -webkit-backdrop-filter: saturate(180%) blur(12px);
 }
 
+.navbar__logo img {
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+}
+
 .navbar__title {
   font-family: var(--ifm-heading-font-family);
   font-weight: 600;

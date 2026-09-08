@@ -7,30 +7,30 @@ import types from '@site/../Aspid.FastTools/Packages/tech.aspid.fasttools/Sample
 import weapons from '@site/../Aspid.FastTools/Packages/tech.aspid.fasttools/Samples~/SerializeReferences/Documentation/Images/scene.png';
 import surfaces from '@site/../Aspid.FastTools/Packages/tech.aspid.fasttools/Samples~/EnumValues/Documentation/Images/scene.png';
 import flock from '@site/../Aspid.FastTools/Packages/tech.aspid.fasttools/Samples~/ProfilerMarkers/Documentation/Images/scene.png';
-import abilities from '@site/../Aspid.FastTools/Packages/tech.aspid.fasttools/Samples~/EditorTools/Documentation/Images/ability-catalog.png';
+import abilities from '@site/static/img/samples/ability-catalog.png';
 import typesLight from '@site/../Aspid.FastTools/Packages/tech.aspid.fasttools/Samples~/Types/Documentation/Images/scene-light.png';
 import weaponsLight from '@site/../Aspid.FastTools/Packages/tech.aspid.fasttools/Samples~/SerializeReferences/Documentation/Images/scene-light.png';
 import surfacesLight from '@site/../Aspid.FastTools/Packages/tech.aspid.fasttools/Samples~/EnumValues/Documentation/Images/scene-light.png';
 import flockLight from '@site/../Aspid.FastTools/Packages/tech.aspid.fasttools/Samples~/ProfilerMarkers/Documentation/Images/scene-light.png';
-import abilitiesLight from '@site/../Aspid.FastTools/Packages/tech.aspid.fasttools/Samples~/EditorTools/Documentation/Images/ability-catalog-light.png';
+import abilitiesLight from '@site/static/img/samples/ability-catalog-light.png';
 import styles from './samples.module.css';
 
 const samples = [
-  { id: 'serialize-references', feature: 'SerializeReferences', image: weapons, lightImage: weaponsLight,
-    en: ['Weapon lab', 'Switch weapons, combine effects and see every hit.'],
-    ru: ['Оружейная лаборатория', 'Меняйте оружие, сочетайте эффекты и наблюдайте результат каждого попадания.'] },
-  { id: 'types', feature: 'Types', image: types, lightImage: typesLight,
-    en: ['Spawn arena', 'Choose enemy behaviours and arrange the next wave.'],
-    ru: ['Арена появления врагов', 'Выбирайте поведение врагов и схему появления следующей волны.'] },
   { id: 'enum-values', feature: 'EnumValues', image: surfaces, lightImage: surfacesLight,
     en: ['Surface laboratory', 'Explore how surfaces change colors, trails and movement.'],
     ru: ['Лаборатория поверхностей', 'Исследуйте, как поверхности меняют цвет, следы и скорость движения.'] },
-  { id: 'profiler-markers', feature: 'ProfilerMarkers', image: flock, lightImage: flockLight,
-    en: ['Flock observatory', 'Watch the simulation, then inspect its work in the Profiler.'],
-    ru: ['Обсерватория стаи', 'Наблюдайте за симуляцией и изучайте её работу в Profiler.'] },
+  { id: 'types', feature: 'Types', image: types, lightImage: typesLight,
+    en: ['Spawn arena', 'Choose enemy behaviours and arrange the next wave.'],
+    ru: ['Арена появления врагов', 'Выбирайте поведение врагов и схему появления следующей волны.'] },
+  { id: 'serialize-references', feature: 'SerializeReferences', image: weapons, lightImage: weaponsLight,
+    en: ['Weapon lab', 'Switch weapons, combine effects and see every hit.'],
+    ru: ['Оружейная лаборатория', 'Меняйте оружие, сочетайте эффекты и наблюдайте результат каждого попадания.'] },
   { id: 'editor-tools', feature: 'EditorTools', image: abilities, lightImage: abilitiesLight,
     en: ['Ability catalog', 'Tune abilities in a custom editor with asset binding and Undo.'],
     ru: ['Каталог способностей', 'Настраивайте способности в редакторе с привязкой к ассетам и поддержкой Undo.'] },
+  { id: 'profiler-markers', feature: 'ProfilerMarkers', image: flock, lightImage: flockLight,
+    en: ['Flock observatory', 'Watch the simulation, then inspect its work in the Profiler.'],
+    ru: ['Обсерватория стаи', 'Наблюдайте за симуляцией и изучайте её работу в Profiler.'] },
 ];
 
 export default function Samples() {
@@ -48,8 +48,8 @@ export default function Samples() {
           <h1>{title}</h1>
           <p className={styles.intro}>{description}</p>
           <p className={styles.importNote}>{ru
-            ? 'Начните в Unity: Package Manager → Aspid.FastTools → Samples → Import.'
-            : 'Start in Unity: Package Manager → Aspid.FastTools → Samples → Import.'}</p>
+            ? 'Откройте Welcome Window: Tools → Aspid 🐍 → FastTools → Welcome. В разделе Samples нажмите Import у нужного примера.'
+            : 'Open the Welcome Window: Tools → Aspid 🐍 → FastTools → Welcome. In Samples, click Import on the sample you want.'}</p>
         </header>
         <div className={styles.grid}>
           {samples.map((sample, index) => {
