@@ -332,6 +332,14 @@ pre {
   font-size: 0.9rem;
 }
 
+@media (max-width: 996px) {
+  .markdown table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
+
 .markdown table th {
   background: var(--ifm-background-surface-color);
   font-weight: 600;
@@ -577,4 +585,24 @@ html.docs-doc-page .navbar {
   margin-inline: auto;
   max-width: 100%;
   height: auto;
+}
+
+/* Paired sample media follows the site's explicit theme, including before hydration. */
+.theme-doc-markdown .theme-image--dark,
+.theme-doc-markdown .theme-image--light {
+  display: block;
+}
+.theme-doc-markdown .theme-image--dark img,
+.theme-doc-markdown .theme-image--light img {
+  display: block;
+  margin-inline: auto;
+  max-width: 100%;
+  height: auto;
+}
+.theme-doc-markdown .theme-image--light,
+html[data-theme='light'] .theme-doc-markdown .theme-image--dark {
+  display: none;
+}
+html[data-theme='light'] .theme-doc-markdown .theme-image--light {
+  display: block;
 }

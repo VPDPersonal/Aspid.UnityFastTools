@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import venom from './src/prism/venom.js';
 import remarkGithubAdmonitionsToDirectives from 'remark-github-admonitions-to-directives';
 import remarkCrossInstanceLinks from './src/remark/crossInstanceLinks.js';
+import remarkThemedImages from './src/remark/themedImages.js';
 
 const PACKAGE = '../Aspid.FastTools/Packages/tech.aspid.fasttools';
 const LOCALES = ['en', 'ru'];
@@ -31,7 +32,7 @@ function samplePrefixParser(filename) {
  * between the two plugin instances become site routes.
  */
 const markdownOptions = {
-  beforeDefaultRemarkPlugins: [remarkGithubAdmonitionsToDirectives, remarkCrossInstanceLinks],
+  beforeDefaultRemarkPlugins: [remarkGithubAdmonitionsToDirectives, remarkCrossInstanceLinks, remarkThemedImages],
   showLastUpdateTime: false,
   editUrl: ({ versionDocsDirPath, docPath, locale }) =>
     locale === 'en'
@@ -156,7 +157,7 @@ const config = {
         hideOnScroll: false,
         items: [
           { type: 'docSidebar', sidebarId: 'docs', position: 'left', label: 'Docs' },
-          { type: 'docSidebar', docsPluginId: 'tutorials', sidebarId: 'tutorials', position: 'left', label: 'Tutorials' },
+          { to: '/samples', position: 'left', label: 'Tutorials' },
           { type: 'docSidebar', docsPluginId: 'api', sidebarId: 'api', position: 'left', label: 'API' },
           { to: '/changelog', label: 'Changelog', position: 'left' },
           { type: 'docsVersionDropdown', position: 'right' },
@@ -179,7 +180,7 @@ const config = {
           {
             title: 'Learn',
             items: [
-              { label: 'Tutorials', to: '/tutorials/types' },
+              { label: 'Tutorials', to: '/samples' },
               { label: 'API Reference', to: '/api/Aspid.FastTools' },
               { label: 'VisualElement Extensions', to: '/docs/visual-element-extensions' },
             ],
