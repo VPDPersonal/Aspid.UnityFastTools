@@ -23,7 +23,7 @@ const samples = [
     en: ['Spawn arena', 'Choose enemy behaviours and arrange the next wave.'],
     ru: ['Арена появления врагов', 'Выбирайте поведение врагов и схему появления следующей волны.'] },
   { id: 'enum-values', feature: 'EnumValues', image: surfaces, lightImage: surfacesLight,
-    en: ['Surface laboratory', 'Explore how surfaces change colors, footsteps and movement.'],
+    en: ['Surface laboratory', 'Explore how surfaces change colors, trails and movement.'],
     ru: ['Лаборатория поверхностей', 'Исследуйте, как поверхности меняют цвет, следы и скорость движения.'] },
   { id: 'profiler-markers', feature: 'ProfilerMarkers', image: flock, lightImage: flockLight,
     en: ['Flock observatory', 'Watch the simulation, then inspect its work in the Profiler.'],
