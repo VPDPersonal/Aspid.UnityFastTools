@@ -96,18 +96,25 @@ const config = {
 
   plugins: [
     [
-      // Tutorials are the README.md (and TUTORIAL.md) of each sample: one source for GitHub, Unity and the site.
-      // Translations are `README.<locale>.md` / `TUTORIAL.<locale>.md` beside them, wired in by scripts/sync-i18n.mjs.
+      // Tutorials are generated from each sample's Documentation folder by scripts/sync-i18n.mjs.
+      // The generated tree keeps the public routes flat while the package keeps docs and images out of sample roots.
       '@docusaurus/plugin-content-docs',
       /** @type {import('@docusaurus/plugin-content-docs').Options} */
       ({
         id: 'tutorials',
-        path: `${PACKAGE}/Samples~`,
+        path: 'tutorials',
         routeBasePath: 'tutorials',
         sidebarPath: './sidebarsTutorials.js',
         include: ['*/README.md', '*/TUTORIAL.md'],
         numberPrefixParser: samplePrefixParser,
         ...markdownOptions,
+        editUrl: ({ docPath, locale }) =>
+          locale === 'en'
+            ? `${REPO}/edit/main/Aspid.FastTools/Packages/tech.aspid.fasttools/Samples~/${docPath.replace(
+                /\/(README|TUTORIAL)\.md$/,
+                '/Documentation/$1.md',
+              )}`
+            : undefined,
       }),
     ],
     [

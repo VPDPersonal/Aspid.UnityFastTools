@@ -570,3 +570,11 @@ html.docs-doc-page .navbar {
 .markdown a:not(.card):not(.pagination-nav__link):hover {
   text-decoration-color: var(--venom-accent);
 }
+
+/* Center standalone documentation images while preserving their natural size. */
+.theme-doc-markdown > p > img:only-child {
+  display: block;
+  margin-inline: auto;
+  max-width: 100%;
+  height: auto;
+}

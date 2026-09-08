@@ -3,7 +3,8 @@
  * single source of truth and contributors never touch Docusaurus' plugin-named folders by hand.
  *
  *   Documentation/<locale>/**              → i18n/<locale>/docusaurus-plugin-content-docs/current/**
- *   Samples~/<Sample>/<Name>.<locale>.md   → i18n/<locale>/docusaurus-plugin-content-docs-tutorials/current/<Sample>/<Name>.md
+ *   Samples~/<Sample>/Documentation/<Name>.md          → tutorials/<Sample>/<Name>.md
+ *   Samples~/<Sample>/Documentation/<Name>.<locale>.md → i18n/<locale>/docusaurus-plugin-content-docs-tutorials/current/<Sample>/<Name>.md
  *   CHANGELOG.md / CHANGELOG.<locale>.md   → changelog/index.md / i18n/<locale>/docusaurus-plugin-content-docs-changelog/current/index.md
  *
  * Files are copied, not symlinked: webpack resolves symlinks to their real path, which breaks the
@@ -20,6 +21,7 @@ const packageDir = path.resolve(siteDir, '../Aspid.FastTools/Packages/tech.aspid
 const changelogDir = path.join(siteDir, 'changelog');
 const docsDir = path.join(packageDir, 'Documentation');
 const samplesDir = path.join(packageDir, 'Samples~');
+const tutorialsDir = path.join(siteDir, 'tutorials');
 const i18nDir = path.join(siteDir, 'i18n');
 
 const locales = fs
@@ -29,6 +31,7 @@ const locales = fs
 
 fs.rmSync(i18nDir, { recursive: true, force: true });
 fs.rmSync(changelogDir, { recursive: true, force: true });
+fs.rmSync(tutorialsDir, { recursive: true, force: true });
 
 function copy(source, destination) {
   fs.mkdirSync(path.dirname(destination), { recursive: true });
@@ -47,6 +50,20 @@ function writeChangelog(source, destination) {
 
 writeChangelog(path.join(repoDir, 'CHANGELOG.md'), path.join(changelogDir, 'index.md'));
 
+for (const sample of fs.readdirSync(samplesDir, { withFileTypes: true })) {
+  if (!sample.isDirectory()) continue;
+  const documentationDir = path.join(samplesDir, sample.name, 'Documentation');
+  if (!fs.existsSync(documentationDir)) continue;
+
+  const outputDir = path.join(tutorialsDir, sample.name);
+  const images = path.join(documentationDir, 'Images');
+  if (fs.existsSync(images)) copy(images, path.join(outputDir, 'Images'));
+
+  for (const file of fs.readdirSync(documentationDir)) {
+    if (/^(README|TUTORIAL)\.md$/.test(file)) copy(path.join(documentationDir, file), path.join(outputDir, file));
+  }
+}
+
 for (const locale of locales) {
   const changelog = path.join(repoDir, `CHANGELOG.${locale}.md`);
   if (fs.existsSync(changelog)) {
@@ -54,20 +71,24 @@ for (const locale of locales) {
   }
 
   copy(path.join(docsDir, locale), path.join(i18nDir, locale, 'docusaurus-plugin-content-docs', 'current'));
-  // Translated pages reference `../Images/…` (docs) and `../../Documentation/Images/…` (tutorials) exactly like
-  // the English originals; mirror the folder so the relative paths resolve from the i18n copies too.
+  // Translated main docs reference `../Images/…`; mirror the folder so those file paths resolve in i18n.
   copy(path.join(docsDir, 'Images'), path.join(i18nDir, locale, 'docusaurus-plugin-content-docs', 'Images'));
   copy(path.join(docsDir, 'Images'), path.join(i18nDir, locale, 'docusaurus-plugin-content-docs-tutorials', 'Documentation', 'Images'));
 
   for (const sample of fs.readdirSync(samplesDir, { withFileTypes: true })) {
     if (!sample.isDirectory()) continue;
-    const sampleDir = path.join(samplesDir, sample.name);
+    const documentationDir = path.join(samplesDir, sample.name, 'Documentation');
+    if (!fs.existsSync(documentationDir)) continue;
+    const images = path.join(documentationDir, 'Images');
+    if (fs.existsSync(images)) {
+      copy(images, path.join(i18nDir, locale, 'docusaurus-plugin-content-docs-tutorials', 'current', sample.name, 'Images'));
+    }
     const suffix = `.${locale}.md`;
-    for (const file of fs.readdirSync(sampleDir)) {
+    for (const file of fs.readdirSync(documentationDir)) {
       if (!file.endsWith(suffix)) continue;
       const target = file.slice(0, -suffix.length) + '.md';
       copy(
-        path.join(sampleDir, file),
+        path.join(documentationDir, file),
         path.join(i18nDir, locale, 'docusaurus-plugin-content-docs-tutorials', 'current', sample.name, target),
       );
     }

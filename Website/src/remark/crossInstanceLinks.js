@@ -1,8 +1,8 @@
 /**
  * Rewrites Markdown links that cross the boundary between the two docs plugin instances.
  *
- * A sample README links to the main docs as `../../Documentation/03-binding-modes.md`, and a doc
- * links to a tutorial as `../Samples~/01.%20Counter/README.md`. GitHub follows these as files,
+ * A sample README links to the main docs as `../../../Documentation/03-binding-modes.md`, and a doc
+ * links to a tutorial as `../Samples~/01.%20Counter/Documentation/README.md`. GitHub follows these as files,
  * but Docusaurus resolves `.md` links only inside the current plugin. This plugin turns them into
  * site routes before Docusaurus sees them, so the file links stay the single source of truth.
  *
@@ -11,9 +11,9 @@
  * current locale itself.
  */
 const DOCS_RE = /^(?:\.\.\/)+Documentation\/(?:([a-z]{2}(?:-[A-Za-z]{2,4})?)\/)?(.+?)(?:\.md)?(#.*)?$/;
-// `Samples~/` is optional so links between sibling tutorials (`../02.%20Greeter/README.ru.md`) are covered too:
+// `Samples~/` and `Documentation/` are optional so links between sibling tutorials are covered too:
 // the translated copies are all named README.md, so the `.ru` file link only exists in the package.
-const SAMPLES_RE = /^(?:\.\.\/)+(?:Samples~\/)?([^/]+)\/README(?:\.([a-z]{2}(?:-[A-Za-z]{2,4})?))?\.md(#.*)?$/i;
+const SAMPLES_RE = /^(?:\.\.\/)+(?:Samples~\/)?([^/]+)\/(?:Documentation\/)?README(?:\.([a-z]{2}(?:-[A-Za-z]{2,4})?))?\.md(#.*)?$/i;
 
 // `README.ru.md` → `README.md`; `ru/06-enum-values.md` → `06-enum-values.md` (only when the path stays inside the same tree).
 const LOCALIZED_RE = /^((?:\.\.\/)*)(?:[a-z]{2}(?:-[A-Za-z]{2,4})?\/)?([^/]+?)(?:\.[a-z]{2}(?:-[A-Za-z]{2,4})?)?\.md((?:#.*)?)$/;
