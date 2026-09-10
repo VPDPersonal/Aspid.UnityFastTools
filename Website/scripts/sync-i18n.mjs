@@ -42,13 +42,34 @@ function copy(source, destination) {
  * The changelog is served at /changelog. The language-switch line at its top (`> Русская версия: …`)
  * exists for GitHub readers; the site has a locale dropdown, so it is dropped.
  */
+// `## [1.0.0] — 2026-01-01` → anchor `#v1-0-0`, so the generated sidebar can link every version in every locale.
+const versionHeading = /^## \[([^\]]+)\](.*)$/gm;
+const versionAnchor = (version) => `v${version.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+
 function writeChangelog(source, destination) {
-  const body = fs.readFileSync(source, 'utf8').replace(/^> .*CHANGELOG(?:\.[a-z]{2})?\.md.*\n\n/m, '');
+  const body = fs
+    .readFileSync(source, 'utf8')
+    .replace(/^> .*CHANGELOG(?:\.[a-z]{2})?\.md.*\n\n/m, '')
+    .replace(versionHeading, (line, version) => `${line} {#${versionAnchor(version)}}`);
   fs.mkdirSync(path.dirname(destination), { recursive: true });
-  fs.writeFileSync(destination, `---\nslug: /\n---\n\n${body}`);
+  fs.writeFileSync(destination, `---\nslug: /\ndisplayed_sidebar: changelog\n---\n\n${body}`);
+}
+
+// The changelog is a single page; its sidebar lists the versions so the left panel is never empty.
+function writeChangelogSidebar(source, destination) {
+  const versions = [...fs.readFileSync(source, 'utf8').matchAll(versionHeading)].map(([, version]) => ({
+    type: 'link', label: version, href: `/changelog#${versionAnchor(version)}`,
+  }));
+  const sidebars = { changelog: [{ type: 'category', label: 'Versions', className: 'doc-menu-group', collapsible: false, items: versions }] };
+  fs.writeFileSync(destination, `${JSON.stringify(sidebars, null, 2)}\n`);
 }
 
 writeChangelog(path.join(repoDir, 'CHANGELOG.md'), path.join(changelogDir, 'index.md'));
+writeChangelogSidebar(path.join(repoDir, 'CHANGELOG.md'), path.join(changelogDir, 'sidebars.json'));
+
+// The gallery that opens the Samples section lives in the site, not in the package.
+const samplesIndexDir = path.join(siteDir, 'src', 'samples');
+copy(path.join(samplesIndexDir, 'index.mdx'), path.join(tutorialsDir, 'index.mdx'));
 
 for (const sample of fs.readdirSync(samplesDir, { withFileTypes: true })) {
   if (!sample.isDirectory()) continue;
@@ -65,6 +86,9 @@ for (const sample of fs.readdirSync(samplesDir, { withFileTypes: true })) {
 }
 
 for (const locale of locales) {
+  // Site interface translations are maintained separately from package Markdown.
+  const interfaceTranslations = path.join(siteDir, 'translations', locale);
+  if (fs.existsSync(interfaceTranslations)) copy(interfaceTranslations, path.join(i18nDir, locale));
   const changelog = path.join(repoDir, `CHANGELOG.${locale}.md`);
   if (fs.existsSync(changelog)) {
     writeChangelog(changelog, path.join(i18nDir, locale, 'docusaurus-plugin-content-docs-changelog', 'current', 'index.md'));
@@ -74,6 +98,10 @@ for (const locale of locales) {
   // Translated main docs reference `../Images/…`; mirror the folder so those file paths resolve in i18n.
   copy(path.join(docsDir, 'Images'), path.join(i18nDir, locale, 'docusaurus-plugin-content-docs', 'Images'));
   copy(path.join(docsDir, 'Images'), path.join(i18nDir, locale, 'docusaurus-plugin-content-docs-tutorials', 'Documentation', 'Images'));
+  const samplesIndex = path.join(samplesIndexDir, `index.${locale}.mdx`);
+  if (fs.existsSync(samplesIndex)) {
+    copy(samplesIndex, path.join(i18nDir, locale, 'docusaurus-plugin-content-docs-tutorials', 'current', 'index.mdx'));
+  }
 
   for (const sample of fs.readdirSync(samplesDir, { withFileTypes: true })) {
     if (!sample.isDirectory()) continue;
