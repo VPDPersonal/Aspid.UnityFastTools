@@ -8,6 +8,7 @@
  */
 export default {
   tutorials: [
+    { type: 'doc', id: 'index', label: 'Overview' },
     { type: 'doc', id: 'enum-values/readme', label: 'EnumValues' },
     { type: 'doc', id: 'types/readme', label: 'Types' },
     { type: 'doc', id: 'serialize-references/readme', label: 'SerializeReferences' },

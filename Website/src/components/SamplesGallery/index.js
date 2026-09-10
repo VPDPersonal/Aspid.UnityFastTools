@@ -1,19 +1,18 @@
 import React from 'react';
-import Layout from '@theme/Layout';
 import ThemedImage from '@theme/ThemedImage';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import types from '@site/../Aspid.FastTools/Packages/tech.aspid.fasttools/Samples~/Types/Documentation/Images/scene.png';
-import weapons from '@site/../Aspid.FastTools/Packages/tech.aspid.fasttools/Samples~/SerializeReferences/Documentation/Images/scene.png';
-import surfaces from '@site/../Aspid.FastTools/Packages/tech.aspid.fasttools/Samples~/EnumValues/Documentation/Images/scene.png';
-import flock from '@site/../Aspid.FastTools/Packages/tech.aspid.fasttools/Samples~/ProfilerMarkers/Documentation/Images/scene.png';
+import types from '@site/static/img/samples/types.png';
+import weapons from '@site/static/img/samples/serialize-references.png';
+import surfaces from '@site/static/img/samples/enum-values.png';
+import flock from '@site/static/img/samples/profiler-markers.png';
 import abilities from '@site/static/img/samples/ability-catalog.png';
-import typesLight from '@site/../Aspid.FastTools/Packages/tech.aspid.fasttools/Samples~/Types/Documentation/Images/scene-light.png';
-import weaponsLight from '@site/../Aspid.FastTools/Packages/tech.aspid.fasttools/Samples~/SerializeReferences/Documentation/Images/scene-light.png';
-import surfacesLight from '@site/../Aspid.FastTools/Packages/tech.aspid.fasttools/Samples~/EnumValues/Documentation/Images/scene-light.png';
-import flockLight from '@site/../Aspid.FastTools/Packages/tech.aspid.fasttools/Samples~/ProfilerMarkers/Documentation/Images/scene-light.png';
+import typesLight from '@site/static/img/samples/types-light.png';
+import weaponsLight from '@site/static/img/samples/serialize-references-light.png';
+import surfacesLight from '@site/static/img/samples/enum-values-light.png';
+import flockLight from '@site/static/img/samples/profiler-markers-light.png';
 import abilitiesLight from '@site/static/img/samples/ability-catalog-light.png';
-import styles from './samples.module.css';
+import styles from './styles.module.css';
 
 const samples = [
   { id: 'enum-values', feature: 'EnumValues', image: surfaces, lightImage: surfacesLight,
@@ -33,43 +32,30 @@ const samples = [
     ru: ['Обсерватория стаи', 'Наблюдайте за симуляцией и изучайте её работу в Profiler.'] },
 ];
 
-export default function Samples() {
+export default function SamplesGallery() {
   const { i18n } = useDocusaurusContext();
   const ru = i18n.currentLocale === 'ru';
-  const title = ru ? 'Примеры в действии' : 'Samples in action';
-  const description = ru
-    ? 'Пять небольших лабораторий. Откройте сцену или окно, измените настройку и посмотрите, что произойдёт.'
-    : 'Five small labs. Open a scene or editor, change a setting and see what happens.';
   return (
-    <Layout title={title} description={description}>
-      <main className={styles.page}>
-        <header className={styles.header}>
-          <p className={styles.eyebrow}>ASPID FASTTOOLS / SAMPLE LAB</p>
-          <h1>{title}</h1>
-          <p className={styles.intro}>{description}</p>
-          <p className={styles.importNote}>{ru
-            ? 'Откройте Welcome Window: Tools → Aspid 🐍 → FastTools → Welcome. В разделе Samples нажмите Import у нужного примера.'
-            : 'Open the Welcome Window: Tools → Aspid 🐍 → FastTools → Welcome. In Samples, click Import on the sample you want.'}</p>
-        </header>
-        <div className={styles.grid}>
-          {samples.map((sample, index) => {
-            const [name, description] = sample[ru ? 'ru' : 'en'];
-            return (
-              <Link key={sample.id} to={`/tutorials/${sample.id}`} className={styles.card}>
-                <div className={styles.preview}>
-                  <ThemedImage sources={{dark: sample.image, light: sample.lightImage}} alt={name} width="1440" height="810" loading={index > 1 ? 'lazy' : 'eager'} />
-                </div>
-                <div className={styles.content}>
-                  <p className={styles.feature}>{String(index + 1).padStart(2, '0')} / {sample.feature}</p>
-                  <h2>{name}</h2>
-                  <p>{description}</p>
-                  <span className={styles.action}>{ru ? 'Открыть пример' : 'Explore sample'} <span aria-hidden="true">↗</span></span>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </main>
-    </Layout>
+    <div className={styles.page}>
+      <header className={styles.header}>
+        <h1>{ru ? 'Примеры в действии' : 'Samples in action'}</h1>
+      </header>
+      <div className={styles.grid}>
+        {samples.map((sample, index) => {
+          const [name, description] = sample[ru ? 'ru' : 'en'];
+          return (
+            <Link key={sample.id} to={`/tutorials/${sample.id}`} className={styles.card}>
+              <div className={`${styles.preview}${sample.id !== 'editor-tools' ? ' sample-scene' : ''}`}>
+                <ThemedImage sources={{dark: sample.image, light: sample.lightImage}} alt={name} width="1440" height="810" loading={index > 1 ? 'lazy' : 'eager'} />
+              </div>
+              <div className={styles.content}>
+                <p className={styles.feature}><span className={styles.index}>{String(index + 1).padStart(2, '0')} /</span> {sample.feature}</p>
+                <p>{description}</p>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </div>
   );
 }
