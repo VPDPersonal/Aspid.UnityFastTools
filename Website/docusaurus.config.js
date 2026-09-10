@@ -33,7 +33,7 @@ function samplePrefixParser(filename) {
  */
 const markdownOptions = {
   beforeDefaultRemarkPlugins: [remarkGithubAdmonitionsToDirectives, remarkCrossInstanceLinks, remarkThemedImages],
-  showLastUpdateTime: false,
+  showLastUpdateTime: true,
   editUrl: ({ versionDocsDirPath, docPath, locale }) =>
     locale === 'en'
       ? `${REPO}/edit/main/${versionDocsDirPath.replace(/^\.\.\//, '')}/${docPath}`
@@ -125,7 +125,7 @@ const config = {
         routeBasePath: 'changelog',
         breadcrumbs: false,
         sidebarPath: './changelog/sidebars.json',
-        showLastUpdateTime: false,
+        showLastUpdateTime: true,
         editUrl: ({ locale }) => (locale === 'en' ? `${REPO}/edit/main/CHANGELOG.md` : undefined),
         beforeDefaultRemarkPlugins: [remarkGithubAdmonitionsToDirectives],
       }),

@@ -10,7 +10,11 @@
  * Files are copied, not symlinked: webpack resolves symlinks to their real path, which breaks the
  * relative Markdown links inside a translation. `Website/i18n` is a build artifact and is gitignored.
  * Runs before `start` and `build`.
+ *
+ * Copies are not tracked by git, so Docusaurus cannot read their history; every copied Markdown page gets
+ * `last_update.date` from the source file's last commit instead (the footer's "Last updated" line).
  */
+import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -36,6 +40,40 @@ fs.rmSync(tutorialsDir, { recursive: true, force: true });
 function copy(source, destination) {
   fs.mkdirSync(path.dirname(destination), { recursive: true });
   fs.cpSync(source, destination, { recursive: true, filter: (file) => !file.endsWith('.meta') });
+  stampLastUpdate(source, destination);
+}
+
+/** ISO date of the last commit touching `file`, or null when git has no history for it (uncommitted). */
+function lastCommitDate(file) {
+  try {
+    const date = execFileSync('git', ['log', '-1', '--format=%cI', '--', file], { cwd: repoDir, stdio: ['ignore', 'pipe', 'ignore'] })
+      .toString()
+      .trim();
+    return date || null;
+  } catch {
+    return null;
+  }
+}
+
+/** Adds `last_update.date` to the front matter of `destination` (or of every Markdown file under it). */
+function stampLastUpdate(source, destination) {
+  if (fs.statSync(source).isDirectory()) {
+    for (const entry of fs.readdirSync(source, { withFileTypes: true })) {
+      if (entry.name.endsWith('.meta')) continue;
+      stampLastUpdate(path.join(source, entry.name), path.join(destination, entry.name));
+    }
+    return;
+  }
+  if (!/\.mdx?$/.test(source)) return;
+  const date = lastCommitDate(source);
+  if (!date) return;
+  const body = fs.readFileSync(destination, 'utf8');
+  const stamp = `last_update:\n  date: ${date}\n`;
+  const frontMatter = /^---\r?\n([\s\S]*?)\r?\n---\r?\n/.exec(body);
+  const stamped = frontMatter
+    ? `---\n${frontMatter[1]}\n${stamp}---\n${body.slice(frontMatter[0].length)}`
+    : `---\n${stamp}---\n\n${body}`;
+  fs.writeFileSync(destination, stamped);
 }
 
 /**
@@ -51,8 +89,9 @@ function writeChangelog(source, destination) {
     .readFileSync(source, 'utf8')
     .replace(/^> .*CHANGELOG(?:\.[a-z]{2})?\.md.*\n\n/m, '')
     .replace(versionHeading, (line, version) => `${line} {#${versionAnchor(version)}}`);
+  const date = lastCommitDate(source);
   fs.mkdirSync(path.dirname(destination), { recursive: true });
-  fs.writeFileSync(destination, `---\nslug: /\ndisplayed_sidebar: changelog\n---\n\n${body}`);
+  fs.writeFileSync(destination, `---\nslug: /\ndisplayed_sidebar: changelog\n${date ? `last_update:\n  date: ${date}\n` : ''}---\n\n${body}`);
 }
 
 // The changelog is a single page; its sidebar lists the versions so the left panel is never empty.

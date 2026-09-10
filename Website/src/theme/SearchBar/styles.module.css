@@ -1,4 +1,4 @@
-.trigger { display: flex; align-items: center; padding: 8px; color: var(--venom-fg); background: var(--venom-panel); border: 1px solid var(--venom-line-strong); border-radius: 10px; font: 400 14px var(--ifm-font-family-base); cursor: pointer; }
+.trigger { display: flex; align-items: center; padding: 8px; color: var(--venom-fg); background: var(--ifm-code-background); border: 1px solid var(--venom-line-strong); border-radius: 10px; font: 400 14px var(--ifm-font-family-base); cursor: pointer; }
 .trigger:hover { border-color: var(--venom-accent); }
 .trigger:focus-visible, .close:focus-visible { outline: 2px solid var(--venom-accent); outline-offset: 3px; }
 .dialog { position: fixed; inset: 12vh 0 auto; width: min(680px, calc(100% - 32px)); max-width: none; padding: 0; border: 1px solid var(--venom-line-strong); border-radius: 8px; color: var(--venom-fg); background: var(--venom-bg); box-shadow: 0 24px 100px #0006; }

@@ -18,11 +18,11 @@
 .brandTitle { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font: 600 1rem/1.2 var(--ifm-heading-font-family); letter-spacing: -0.01em; }
 
 .switcher { position: relative; display: flex; }
-.switcherButton { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; width: 100%; padding: 0.5rem 0.75rem; color: var(--venom-fg-strong); background: var(--venom-panel); border: 1px solid var(--venom-line-strong); border-radius: 10px; font: 600 0.875rem/1.5 var(--ifm-font-family-base); text-align: left; cursor: pointer; }
+.switcherButton { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; width: 100%; padding: 0.5rem 0.75rem; color: var(--venom-fg-strong); background: var(--ifm-code-background); border: 1px solid var(--venom-line-strong); border-radius: 10px; font: 600 0.875rem/1.5 var(--ifm-font-family-base); text-align: left; cursor: pointer; }
 .switcherButton:hover, .switcherButton[aria-expanded='true'] { border-color: var(--venom-accent); }
 .switcherButton > svg { flex: none; color: var(--venom-muted); transition: transform var(--ifm-transition-fast); }
 .switcherButton[aria-expanded='true'] > svg { transform: rotate(180deg); }
-.switcherMenu { position: absolute; z-index: 20; inset: calc(100% + 0.35rem) 0 auto; margin: 0; padding: 0.35rem; list-style: none; background: var(--venom-panel); border: 1px solid var(--venom-line-strong); border-radius: 10px; box-shadow: 0 12px 40px #0005; }
+.switcherMenu { position: absolute; z-index: 20; inset: calc(100% + 0.35rem) 0 auto; margin: 0; padding: 0.35rem; list-style: none; background: var(--ifm-code-background); border: 1px solid var(--venom-line-strong); border-radius: 10px; box-shadow: 0 12px 40px #0005; }
 .switcherMenuUp { inset: auto 0 calc(100% + 0.35rem) auto; min-width: 10rem; }
 .switcherItem { display: block; padding: 0.45rem 0.75rem; border-radius: 6px; color: var(--venom-fg); font-size: 0.875rem; line-height: 1.5; }
 .switcherItem:hover { color: var(--venom-fg-strong); background: var(--venom-glow-soft); text-decoration: none; }
