@@ -244,7 +244,7 @@ h6 {
 }
 
 .menu__link {
-  border-radius: 4px;
+  border-radius: 10px;
   line-height: 1.5;
 }
 
@@ -676,7 +676,8 @@ html[data-theme='light'] .sample-scene img { filter: url('#sample-scene-backgrou
   margin: 1.25rem 0 0.5rem;
   background: var(--venom-panel);
   border: 1px solid var(--venom-line-strong);
-  border-radius: 4px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 .doc-menu-group > .menu__list-item-collapsible > .menu__link,
 .doc-menu-group > .menu__list-item-collapsible > .menu__link:hover {
