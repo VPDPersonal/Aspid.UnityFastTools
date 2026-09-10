@@ -197,9 +197,21 @@ h6 {
   font-family: var(--ifm-heading-font-family);
 }
 
-.navbar {
+/* The blur lives on a pseudo-element: a backdrop-filter on .navbar itself would become the containing block
+   for the fixed mobile drawer and clip it to the navbar height. */
+.navbar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   backdrop-filter: saturate(180%) blur(12px);
   -webkit-backdrop-filter: saturate(180%) blur(12px);
+}
+
+.navbar-sidebar {
+  --ifm-navbar-sidebar-width: 100vw;
+  background: var(--venom-bg);
+  box-shadow: none;
 }
 
 .navbar__logo img {
