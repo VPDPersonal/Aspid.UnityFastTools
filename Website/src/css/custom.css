@@ -425,13 +425,15 @@ pre {
   border-radius: var(--ifm-pre-border-radius);
   padding: 1.1rem 1.25rem;
   background: var(--ifm-code-background);
+  color: var(--venom-fg); /* a card, not an inline link: body colour at rest, the accent green on hover */
 }
 
 /* The arrows already say which way each card leads; drop the "Previous"/"Next" labels. */
 .pagination-nav__sublabel { display: none; }
 
 .pagination-nav__link:hover {
-  border-color: var(--ifm-color-primary);
+  color: var(--venom-accent);
+  border-color: var(--venom-accent);
 }
 
 .breadcrumbs__item--active .breadcrumbs__link {
@@ -445,14 +447,14 @@ pre {
   background: transparent;
 }
 
-.footer .container { max-width: 1160px; }
-.footer .footer__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem clamp(3rem, 10vw, 10rem); }
-.footer .footer__col { flex: 0 1 auto; width: auto; max-width: none; padding: 0; }
+/* Simple footer: a centred row of contacts with the copyright beneath it. */
+.footer .container { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; max-width: 1160px; font-size: 0.875rem; text-align: center; }
+.footer .footer__links { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 0.25rem 0.5rem; margin: 0; }
+.footer .footer__link-separator { color: var(--venom-muted); }
+.footer .footer__bottom { margin: 0; color: var(--venom-muted); }
 
 @media (max-width: 996px) {
   .footer .container { padding: 0 1.25rem; }
-  .footer .footer__links { flex-direction: column; align-items: flex-start; gap: 1.5rem; margin: 0; }
-  .footer .footer__bottom { text-align: left; }
 }
 
 .footer--dark {
@@ -485,6 +487,10 @@ html[data-theme='light'].docs-doc-page {
 
 /* The root paints the full canvas even when body is only one viewport tall. */
 html.docs-doc-page body { background: transparent; }
+
+/* A click on the empty canvas sends a ripple through the dot texture: src/components/DotRipple redraws the touched
+   dots on this fixed canvas — lifted, pushed outwards and accent-coloured at the crests, sunk in the troughs. */
+.dot-ripple-canvas { position: fixed; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
 
 html.docs-doc-page .navbar { border-bottom: 1px solid var(--venom-line); }
 
@@ -531,8 +537,6 @@ html.docs-doc-page .navbar { border-bottom: 1px solid var(--venom-line); }
   #__docusaurus > .theme-layout-footer { display: none; }
   .doc-column-footer .footer { padding: 1.75rem 0 2rem; }
   .doc-column-footer .footer .container { max-width: 960px; padding: 0 clamp(1.5rem, 3vw, 3rem); }
-  .doc-column-footer .footer .footer__links { justify-content: space-between; gap: 1.5rem 2rem; }
-  .doc-column-footer .footer .footer__bottom { margin-top: 1.5rem; }
 
   [class*='docMainContainer_'] > .container > .row > .col:first-child {
     display: flex;
@@ -561,7 +565,7 @@ html.docs-doc-page .navbar { border-bottom: 1px solid var(--venom-line); }
     flex: 0 0 var(--venom-navigation-width);
     max-width: var(--venom-navigation-width);
     height: calc(100dvh - var(--ifm-navbar-height) - 3rem);
-    padding: 0.5rem 0.5rem 1rem;
+    padding: 0 0.5rem 1rem; /* the first TOC link shares the article card's top edge */
   }
 
   .theme-doc-toc-desktop {

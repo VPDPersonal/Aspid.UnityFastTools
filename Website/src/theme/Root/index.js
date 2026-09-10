@@ -1,4 +1,5 @@
 import React from 'react';
+import DotRipple from '../../components/DotRipple';
 
 // Match only the flat camera background, allowing one channel step for GIF quantization.
 const channelMask = (channel, tolerance = 1) => Array.from({length: 256}, (_, value) =>
@@ -42,6 +43,7 @@ export default function Root({children}) {
           <SceneBackgroundFilter theme="dark" color={[6, 10, 15]} />
         </defs>
       </svg>
+      <DotRipple />
       {children}
     </>
   );

@@ -6,6 +6,7 @@ import remarkCrossInstanceLinks from './src/remark/crossInstanceLinks.js';
 import remarkThemedImages from './src/remark/themedImages.js';
 
 const PACKAGE = '../Aspid.FastTools/Packages/tech.aspid.fasttools';
+const PACKAGE_DIR = PACKAGE.replace(/^\.\.\//, ''); // repository-relative, for "Edit this page" links
 const LOCALES = ['en', 'ru'];
 // Translations live in `Documentation/<locale>/`; they must not be picked up as English pages.
 const TRANSLATION_FOLDERS = LOCALES.filter((locale) => locale !== 'en').map((locale) => `${locale}/**`);
@@ -34,10 +35,9 @@ function samplePrefixParser(filename) {
 const markdownOptions = {
   beforeDefaultRemarkPlugins: [remarkGithubAdmonitionsToDirectives, remarkCrossInstanceLinks, remarkThemedImages],
   showLastUpdateTime: true,
-  editUrl: ({ versionDocsDirPath, docPath, locale }) =>
-    locale === 'en'
-      ? `${REPO}/edit/main/${versionDocsDirPath.replace(/^\.\.\//, '')}/${docPath}`
-      : undefined,
+  // Translations live next to the English sources: `Documentation/<locale>/<file>`.
+  editUrl: ({ docPath, locale }) =>
+    `${REPO}/edit/main/${PACKAGE_DIR}/Documentation/${locale === 'en' ? '' : `${locale}/`}${docPath}`,
 };
 
 /** @type {import('@docusaurus/types').Config} */
@@ -106,13 +106,12 @@ const config = {
         include: ['index.mdx', '*/README.md', '*/TUTORIAL.md'],
         numberPrefixParser: samplePrefixParser,
         ...markdownOptions,
+        // `<Sample>/README.md` → `Samples~/<Sample>/Documentation/README.md`, translations as `README.<locale>.md`.
         editUrl: ({ docPath, locale }) =>
-          locale === 'en'
-            ? `${REPO}/edit/main/Aspid.FastTools/Packages/tech.aspid.fasttools/Samples~/${docPath.replace(
-                /\/(README|TUTORIAL)\.md$/,
-                '/Documentation/$1.md',
-              )}`
-            : undefined,
+          `${REPO}/edit/main/${PACKAGE_DIR}/Samples~/${docPath.replace(
+            /\/(README|TUTORIAL)\.md$/,
+            locale === 'en' ? '/Documentation/$1.md' : `/Documentation/$1.${locale}.md`,
+          )}`,
       }),
     ],
     [
@@ -126,7 +125,7 @@ const config = {
         breadcrumbs: false,
         sidebarPath: './changelog/sidebars.json',
         showLastUpdateTime: true,
-        editUrl: ({ locale }) => (locale === 'en' ? `${REPO}/edit/main/CHANGELOG.md` : undefined),
+        editUrl: ({ locale }) => `${REPO}/edit/main/CHANGELOG${locale === 'en' ? '' : `.${locale}`}.md`,
         beforeDefaultRemarkPlugins: [remarkGithubAdmonitionsToDirectives],
       }),
     ],
@@ -165,31 +164,12 @@ const config = {
       },
       footer: {
         style: 'dark',
+        // One row: the author's contacts. Docs, GitHub, Asset Store and the changelog already live in the sidebar panel.
         links: [
-          {
-            title: 'Docs',
-            items: [
-              { label: 'Getting Started', to: '/docs/getting-started' },
-              { label: 'Serializable Types', to: '/docs/serializable-types' },
-              { label: 'SerializeReference Selector', to: '/docs/serialize-reference-selector' },
-            ],
-          },
-          {
-            title: 'Contact',
-            items: [
-              { label: 'LinkedIn', href: 'https://www.linkedin.com/in/vladislav-panin-965048314/' },
-              { label: 'vpd.aspid@gmail.com', href: 'mailto:vpd.aspid@gmail.com' },
-              { label: 'Vladislav Panin · GitHub', href: 'https://github.com/VPDPersonal' },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              { label: 'GitHub', href: REPO },
-              { label: 'Asset Store', href: ASSET_STORE },
-              { label: 'Changelog', to: '/changelog' },
-            ],
-          },
+          { label: 'Vladislav Panin', href: 'https://github.com/VPDPersonal' },
+          { label: 'LinkedIn', href: 'https://www.linkedin.com/in/vladislav-panin-965048314/' },
+          { label: 'X', href: 'https://x.com/VPDInc' },
+          { label: 'vpd.aspid@gmail.com', href: 'mailto:vpd.aspid@gmail.com' },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} Vladislav Panin. MIT License.`,
       },

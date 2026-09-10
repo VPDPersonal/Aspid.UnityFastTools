@@ -34,6 +34,9 @@
 .list :global(.menu) { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
 
 .footer { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 0.25rem; margin: 0 0.5rem; padding: 0.5rem 0.375rem; border-top: 1px solid var(--venom-line); }
+/* On desktop the panel sits beside the article card: the brand row and the footer icons share the card's top and bottom edges. */
+.panel:not(.panelMobile) .header { padding-top: 0; }
+.panel:not(.panelMobile) .footer { padding-bottom: 0; }
 .icon, .footer :global(.clean-btn), .locale { display: inline-flex; align-items: center; justify-content: center; width: 2rem; height: 2rem; padding: 0; color: var(--venom-fg); background: transparent; border: 0; border-radius: 10px; cursor: pointer; }
 .icon:hover, .footer :global(.clean-btn:hover), .locale:hover, .locale[aria-expanded='true'] { color: var(--venom-accent); background: var(--venom-glow-soft); text-decoration: none; }
 .locale svg { width: 20px; height: 20px; }
