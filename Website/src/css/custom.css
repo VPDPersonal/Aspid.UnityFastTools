@@ -654,12 +654,10 @@ html.docs-doc-page .navbar { border-bottom: 1px solid var(--venom-line); }
   max-width: 100%;
   height: auto;
 }
-.theme-doc-markdown .theme-image--light,
+/* Specificity, not source order, decides: the minifier merges and reorders identical declarations. */
+html:not([data-theme='light']) .theme-doc-markdown .theme-image--light,
 html[data-theme='light'] .theme-doc-markdown .theme-image--dark {
   display: none;
-}
-html[data-theme='light'] .theme-doc-markdown .theme-image--light {
-  display: block;
 }
 
 /* Scene captures share the code surface while keeping their original colors and animation. */
