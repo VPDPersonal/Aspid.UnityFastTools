@@ -38,12 +38,12 @@ export default function DocItemLayout({children}) {
         <ContentVisibility metadata={metadata} />
         <DocVersionBanner />
         <div className={styles.docItemContainer}>
+          <DocItemFooter />
           <article>
             <DocBreadcrumbs />
             <DocVersionBadge />
             {docTOC.mobile}
             <DocItemContent>{children}</DocItemContent>
-            <DocItemFooter />
           </article>
           <DocItemPaginator />
         </div>

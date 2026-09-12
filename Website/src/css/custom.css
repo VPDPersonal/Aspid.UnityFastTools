@@ -737,6 +737,10 @@ html[data-theme='light'] .sample-scene img { filter: url('#sample-scene-backgrou
 .theme-edit-this-page { display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; border-radius: 10px; color: var(--venom-muted); font-size: 0; line-height: 0; }
 .theme-edit-this-page:hover { color: var(--venom-accent); background: var(--venom-glow-soft); }
 .theme-edit-this-page svg { width: 18px; height: 18px; margin: 0; }
+/* Mobile has no reserved top margin: keep metadata in flow above the article and TOC. */
+@media (max-width: 996px) {
+  .theme-doc-footer { position: static; margin-bottom: 1rem !important; }
+}
 .pagination-nav { margin-top: 2.5rem; }
 :where(a, button, [role='button']):focus-visible { outline: 2px solid var(--venom-accent); outline-offset: 4px; }
 
